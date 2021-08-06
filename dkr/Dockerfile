@@ -1,5 +1,5 @@
-
-FROM ubuntu:bionic
+#FROM ubuntu:bionic
+FROM phusion/baseimage:18.04-1.0.0-arm64
 
 # cd ~/dkr && docker build -t steem .
 # docker run -p 0.0.0.0:2001:2001 -v $PWD/data:/steem -d -t steem
@@ -9,9 +9,10 @@ RUN apt-get update && \
     apt-get install -y gcc g++ cmake make libbz2-dev libdb++-dev libdb-dev && \
     apt-get install -y libssl-dev openssl libreadline-dev autoconf libtool git gdb liblz4-tool wget jq virtualenv libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev liblz4-dev libzstd-dev && \
     apt-get install -y autotools-dev build-essential libbz2-dev libicu-dev python-dev wget doxygen python3 python3-dev python3-pip libboost-all-dev curl && \
+    apt-get install -y python3-jinja2 && \
     apt-get clean -qy
 
-RUN pip3 install jinja2
+#RUN pip3 install jinja2
 
 ###
 # Overridable build arguments
@@ -21,10 +22,11 @@ RUN pip3 install jinja2
 #
 ###
 
-ARG steemd_version=stable
+ARG steemd_version=0.23.x-arm64
 ENV steemd_version ${steemd_version}
 
-ARG STEEM_SOURCE="https://github.com/steemit/steem.git"
+#ARG STEEM_SOURCE="https://github.com/steemit/steem.git"
+ARG STEEM_SOURCE="https://github.com/EtainLove/steem.git"
 ENV STEEM_SOURCE ${STEEM_SOURCE}
 
 ARG STEEM_STATIC_BUILD=ON
